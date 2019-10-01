@@ -1,5 +1,6 @@
 const request = require('../request');
 const db = require('../db');
+// eslint-disable-next-line no-unused-vars
 const matchMongoId = require('../match-helpers');
 
 describe('tour api', () => {
@@ -14,13 +15,13 @@ describe('tour api', () => {
 
   function postTour(tour) {
     return request
-      .post('/api/tour')
+      .post('/api/tours')
       .send(tour)
       .expect(200)
       .then(({ body }) => body);
   }
 
-  it('posts a book', () => {
+  it('posts a tour', () => {
     return postTour(tourData).then(tour => {
       expect(tour).toMatchInlineSnapshot(
         {
@@ -46,4 +47,21 @@ describe('tour api', () => {
       );
     });
   });
+
+  it('gets all tours', () => {
+    return Promise.all([
+      postTour(tourData), 
+      postTour(tourData), 
+      postTour(tourData)
+    ])
+      .then(() => {
+        return request
+          .get('/api/tours')
+          .expect(200);
+      })
+      .then(({ body }) => {
+        expect(body.length).toBe(3);
+      });
+  });
+
 });
