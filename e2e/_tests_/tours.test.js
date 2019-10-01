@@ -50,18 +50,32 @@ describe('tour api', () => {
 
   it('gets all tours', () => {
     return Promise.all([
-      postTour(tourData), 
-      postTour(tourData), 
+      postTour(tourData),
+      postTour(tourData),
       postTour(tourData)
     ])
       .then(() => {
-        return request
-          .get('/api/tours')
-          .expect(200);
+        return request.get('/api/tours').expect(200);
       })
       .then(({ body }) => {
         expect(body.length).toBe(3);
+        expect(body[0]).toMatchInlineSnapshot(
+          {},
+          `
+          Object {
+            "__v": 0,
+            "_id": "5d93caf4acd3dc4da2326394",
+            "activities": Array [
+              "beer tastings",
+              "llama petting zoos",
+              "relays",
+            ],
+            "launchDate": "2019-10-01T21:53:56.087Z",
+            "stops": Array [],
+            "title": "akm tours",
+          }
+        `
+        );
       });
   });
-
 });
