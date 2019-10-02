@@ -2,7 +2,6 @@ const request = require('../request');
 const db = require('../db');
 
 describe('stops testing', () => {
-
   beforeEach(() => {
     return Promise.all([
       db.dropCollection('stops'),
@@ -28,16 +27,29 @@ describe('stops testing', () => {
   }
 
   it('adds a stop to this tour', () => {
-    return postTour(tourData)
-      .then((tour => {
-        return request
-          .post(`/api/stops/${tour._id}`)
-          .send(newStop)
-          .expect(200)
-          .then(({ body }) => {
-            console.log(body);
-          });
-      })
-      );
+    return postTour(tourData).then(tour => {
+      return request
+        .post(`/api/stops/${tour._id}`)
+        .send(newStop)
+        .expect(200)
+        .then(({ body }) => {
+          expect(body).toMatchInlineSnapshot(
+            {
+              _id: expect.any(String),
+              __v: 0
+            },
+            `
+            Object {
+              "__v": 0,
+              "_id": Any<String>,
+              "location": Object {
+                "latitude": 41.3843028,
+                "longitude": -81.6558816,
+              },
+            }
+          `
+          );
+        });
+    });
   });
 });
