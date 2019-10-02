@@ -60,18 +60,23 @@ describe('tour api', () => {
       .then(({ body }) => {
         expect(body.length).toBe(3);
         expect(body[0]).toMatchInlineSnapshot(
-          {},
+          {
+            _id: expect.any(String),
+            __v: 0,
+            stops: expect.any(Array),
+            launchDate: expect.any(String)
+          },
           `
           Object {
             "__v": 0,
-            "_id": "5d93caf4acd3dc4da2326394",
+            "_id": Any<String>,
             "activities": Array [
               "beer tastings",
               "llama petting zoos",
               "relays",
             ],
-            "launchDate": "2019-10-01T21:53:56.087Z",
-            "stops": Array [],
+            "launchDate": Any<String>,
+            "stops": Any<Array>,
             "title": "akm tours",
           }
         `
