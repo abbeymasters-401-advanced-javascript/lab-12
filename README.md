@@ -4,9 +4,8 @@
 ### Author: Abbey Masters
 
 ### Links and Resources
-* [submission PR]()
-* [travis]()
-* [swaggerhub URL] ()
+* [submission PR](https://github.com/abbeymasters-401-advanced-javascript/lab-12/pull/1)
+* [travis](https://travis-ci.com/abbeymasters-401-advanced-javascript/lab-12/builds/130138890)
 
 #### Running the app
 Commands:
