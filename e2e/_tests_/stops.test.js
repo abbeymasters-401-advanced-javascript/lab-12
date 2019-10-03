@@ -77,29 +77,29 @@ describe('stops testing', () => {
   });
 
 
-  // it('deletes a stop', () => {
-  //   return postTour(tourData)
-  //     .then(tour => {
-  //       return request
-  //         .post(`/api/stops/${tour._id}`)
-  //         .send(newStop)
-  //         .expect(200)
-  //         .then(({ body }) => {
-  //           const stopId = body._id;
-  //           return request
-  //             .delete(`/api/stops/${tour._id}`)
-  //             .send({ id: stopId })
-  //             .expect(200)
-  //             .then(() => {
-  //               return request
-  //                 .get('/api/tours')
-  //                 .then(({ body }) => {
-  //                   expect(body[0].stops).toEqual([]);
-  //                 });
-  //             });
-  //         });
-  //     });
-  // });
+  it('deletes a stop', () => {
+    return postTour(tourData)
+      .then(tour => {
+        return request
+          .post(`/api/stops/${tour._id}`)
+          .send(newStop)
+          .expect(200)
+          .then(({ body }) => {
+            const stopId = body._id;
+            return request
+              .delete(`/api/stops/${tour._id}`)
+              .send({ id: stopId })
+              .expect(200)
+              .then(() => {
+                return request
+                  .get('/api/tours')
+                  .then(({ body }) => {
+                    expect(body[0].stops).toEqual([]);
+                  });
+              });
+          });
+      });
+  });
 
   it('updates a stop', () => {
     return postTour(tourData).then(tour => {
