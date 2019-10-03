@@ -53,7 +53,7 @@ describe('stops testing', () => {
       .then(({ body }) => body);
   }
 
-  it('adds a stop to this tour', () => {
+  it('posts a stop to this tour', () => {
     return postTour(tourData).then(tour => {
       return request
         .post(`/api/stops/${tour._id}`)
@@ -62,8 +62,8 @@ describe('stops testing', () => {
         .then(({ body }) => {
           expect(body).toMatchInlineSnapshot(
             {
-              _id: expect.any(String),
-              __v: 0
+              __v: 0,
+              _id: expect.any(String)
             },
             `
             Object {
@@ -75,4 +75,50 @@ describe('stops testing', () => {
         });
     });
   });
+
+
+  // it('deletes a stop', () => {
+  //   return postTour(tourData)
+  //     .then(tour => {
+  //       return request
+  //         .post(`/api/stops/${tour._id}`)
+  //         .send(newStop)
+  //         .expect(200)
+  //         .then(({ body }) => {
+  //           const stopId = body._id;
+  //           return request
+  //             .delete(`/api/stops/${tour._id}`)
+  //             .send({ id: stopId })
+  //             .expect(200)
+  //             .then(() => {
+  //               return request
+  //                 .get('/api/tours')
+  //                 .then(({ body }) => {
+  //                   expect(body[0].stops).toEqual([]);
+  //                 });
+  //             });
+  //         });
+  //     });
+  // });
+
+  it('updates a stop', () => {
+    return postTour(tourData).then(tour => {
+      return request
+        .post(`/api/stops/${tour._id}`)
+        .send(newStop)
+        .expect(200)
+        .then(({ body }) => {
+          const stopId = body._id;
+          return request
+            .put(`/api/stops/${tour._id}`)
+            .send({ id: stopId, attendance: 4 })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.attendance).toBe(4);
+            });
+        });
+    });
+  });
+
+
 });
